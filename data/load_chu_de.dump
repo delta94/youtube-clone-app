@@ -1,0 +1,18 @@
+INSERT INTO `chu_de` VALUES
+('cd001','Thoi su','Vietnamese',NULL),
+('cd002','Kinh doanh','Vietnamese',NULL),
+('cd003','Giai tri','Vietnamese',NULL),
+('cd004','The thao','Vietnamese',NULL),
+('cd005','Phap luat','Vietnamese',NULL),
+('cd006','Giao thong','Vietnamese','cd001'),
+('cd007','Nong nghiep sach', 'Vietnamese', 'cd001'),
+('cd008','Doanh nghiep', 'Vietnamese', 'cd002'),
+('cd009','Bat dong san','Vietnamese','cd002'),
+('cd010','Chung khoan','Vietnamese','cd002'),
+('cd011','Phim','Vietnamese','cd003'),
+('cd012','Thoi trang','Vietnamese','cd003'),
+('cd013','Nhac','Vietnamese','cd003'),
+('cd014','Bong da','Vietnamese','cd004'),
+('cd015','Hau truong','Vietnamese','cd004'),
+('cd016','Tennis','Vietnamese','cd004'),
+('cd017','Ho so pha an','Vietnamese','cd005');

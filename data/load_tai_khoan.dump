@@ -1,0 +1,7 @@
+insert into `tai_khoan` values
+('id001', 1, 'admin', 'admin', now(), null, 0),
+('id002', 1, 'ngoctin', 'ngoctin', now(), null, 1),
+('id003', 1, 'vantien', 'vantien', now(), null, 1),
+('id004', 1, 'trungtin', 'trungtin', now(), null, 1),
+('id005', 1, 'ductai', 'ductai', now(), null, 1),
+('id006', 1, 'peter', 'peter', now(), null, 1);

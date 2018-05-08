@@ -1,0 +1,234 @@
+DROP DATABASE IF EXISTS newsfeed;
+CREATE DATABASE IF NOT EXISTS newsfeed;
+USE newsfeed;
+
+SELECT 'Creating database ... ' AS 'INFO';
+
+CREATE TABLE tham_do
+(
+  ID_TT VARCHAR(10) NOT NULL,
+  Content VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (ID_TT)
+);
+
+CREATE TABLE cau_tra_loi
+(
+  STT INT NOT NULL,
+  Noi_dung VARCHAR(1000) NOT NULL,
+  So_phieu INT NOT NULL,
+  Phan_tram_chon INT NOT NULL,
+  ID_TT VARCHAR(10) NOT NULL,
+  PRIMARY KEY (STT, ID_TT),
+  FOREIGN KEY (ID_TT) REFERENCES tham_do(ID_TT)
+);
+
+CREATE TABLE image
+(
+  ID_Image VARCHAR(10) NOT NULL,
+  Ten_anh VARCHAR(100) NULL,
+  Link VARCHAR(100) NOT NULL,
+  PRIMARY KEY (ID_Image)
+);
+
+CREATE TABLE video
+(
+  ID_Video VARCHAR(10) NOT NULL,
+  Ten_video VARCHAR(100) NOT NULL,
+  Link VARCHAR(100) NOT NULL,
+  PRIMARY KEY (ID_Video)
+);
+
+CREATE TABLE tai_khoan
+(
+  ID VARCHAR(10) NOT NULL,
+  Trang_thai INT NOT NULL,
+  Ten_dang_nhap VARCHAR(100) NOT NULL,
+  MK VARCHAR(100) NOT NULL,
+  Ngay_gia_nhap DATE NOT NULL,
+  Link_avatar VARCHAR(100),
+  Phan_loai INT NOT NULL,
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE AccInfo
+(
+  Ten INT NOT NULL,
+  GT INT NOT NULL,
+  Ngay_sinh INT NOT NULL,
+  CMND INT NOT NULL,
+  ID VARCHAR(10) NOT NULL,
+  PRIMARY KEY (Ten, ID),
+  FOREIGN KEY (ID) REFERENCES tai_khoan(ID)
+);
+
+CREATE TABLE dia_chi
+(
+  So_nha VARCHAR(100) NOT NULL,
+  Quoc_gia VARCHAR(100) NOT NULL,
+  ID VARCHAR(10) NOT NULL,
+  PRIMARY KEY (So_nha, ID),
+  FOREIGN KEY (ID) REFERENCES tai_khoan(ID)
+);
+
+CREATE TABLE lien_he
+(
+  DThoai VARCHAR(20) NOT NULL,
+  Web VARCHAR(100) NOT NULL,
+  Gioi_thieu VARCHAR(100) NOT NULL,
+  ID VARCHAR(10) NOT NULL,
+  PRIMARY KEY (DThoai, ID),
+  FOREIGN KEY (ID) REFERENCES tai_khoan(ID)
+);
+
+CREATE TABLE thanh_vien_gia_dinh
+(
+  STT INT NOT NULL,
+  Ngay_sinh DATE NOT NULL,
+  Ten VARCHAR(100) NOT NULL,
+  Moi_qhe VARCHAR(100) NOT NULL,
+  Gioi_tinh VARCHAR(10) NOT NULL,
+  ID VARCHAR(10) NOT NULL,
+  PRIMARY KEY (STT, ID),
+  FOREIGN KEY (ID) REFERENCES tai_khoan(ID)
+);
+
+CREATE TABLE BMI
+(
+  Lan_do INT NOT NULL,
+  Tgian_do DATE NOT NULL,
+  Ghi_chu VARCHAR(100) NOT NULL,
+  Chi_so INT NOT NULL,
+  ID INT NOT NULL,
+  STT VARCHAR(10) NOT NULL,
+  PRIMARY KEY (Lan_do, ID, STT),
+  FOREIGN KEY (ID, STT) REFERENCES thanh_vien_gia_dinh(STT, ID)
+);
+
+CREATE TABLE Bang_tiem_chung
+(
+  Loai_vacxin VARCHAR(100) NOT NULL,
+  Tgian_tiem DATE NOT NULL,
+  Giai_doan VARCHAR(100) NOT NULL,
+  Ghi_chu VARCHAR(100) NOT NULL,
+  ID INT NOT NULL,
+  STT VARCHAR(10) NOT NULL,
+  PRIMARY KEY (Loai_vacxin, ID, STT),
+  FOREIGN KEY (ID, STT) REFERENCES thanh_vien_gia_dinh(STT, ID)
+);
+
+CREATE TABLE chu_de
+(
+  ID_TT VARCHAR(10) NOT NULL,
+  Ten_CD VARCHAR(100) NOT NULL,
+  Ngon_ngu VARCHAR(100) NOT NULL,
+  ID_TT_Cha VARCHAR(10) NULL,
+  PRIMARY KEY (ID_TT),
+  FOREIGN KEY (ID_TT_Cha) REFERENCES chu_de(ID_TT)
+);
+
+CREATE TABLE bai_viet
+(
+  ID_BV VARCHAR(10) NOT NULL,
+  Luot_quan_tam INT NOT NULL,
+  So_luong_luu INT NOT NULL,
+  Trang_thai INT NOT NULL,
+  ID_TT VARCHAR(10) NOT NULL,
+  Noi_dung VARCHAR(10000) NOT NULL,
+  PRIMARY KEY (ID_BV, ID_TT),
+  FOREIGN KEY (ID_TT) REFERENCES chu_de(ID_TT)
+);
+
+CREATE TABLE binh_luan
+(
+  ID_BL VARCHAR(10) NOT NULL,
+  Thoi_gian DATE NOT NULL,
+  Noi_dung VARCHAR(1000) NOT NULL,
+  So_luot_thich INT NOT NULL,
+  so_luot_binh_luan INT NOT NULL,
+  Trang_thai INT NOT NULL,
+  ID_TT VARCHAR(10) NOT NULL,
+  ID_BV VARCHAR(10) NOT NULL,
+  ID_BL_Cha VARCHAR(10) NOT NULL,
+  ID_BV_Cha VARCHAR(10) NOT NULL,
+  ID_BL_Con VARCHAR(10) NOT NULL,
+  PRIMARY KEY (ID_BL, ID_TT, ID_BV),
+  FOREIGN KEY (ID_TT, ID_BV) REFERENCES bai_viet(ID_BV, ID_TT),
+  FOREIGN KEY (ID_BL_Cha, ID_BV_Cha, ID_BL_Con) REFERENCES binh_luan(ID_BL, ID_TT, ID_BV)
+);
+
+CREATE TABLE gom_anh
+(
+  ID_Image VARCHAR(10) NOT NULL,
+  ID_TT VARCHAR(10) NOT NULL,
+  ID_BV VARCHAR(10) NOT NULL,
+  PRIMARY KEY (ID_Image, ID_TT, ID_BV),
+  FOREIGN KEY (ID_TT, ID_BV) REFERENCES bai_viet(ID_BV, ID_TT)
+);
+
+CREATE TABLE gom_video
+(
+  ID_Video VARCHAR(10) NOT NULL,
+  ID_TT VARCHAR(10) NOT NULL,
+  ID_BV VARCHAR(10) NOT NULL,
+  PRIMARY KEY (ID_Video, ID_TT, ID_BV),
+  FOREIGN KEY (ID_TT, ID_BV) REFERENCES bai_viet(ID_BV, ID_TT)
+);
+
+CREATE TABLE luu_BV
+(
+  ID VARCHAR(10) NOT NULL,
+  ID_BV VARCHAR(10) NOT NULL,
+  ID_TT VARCHAR(10) NOT NULL,
+  PRIMARY KEY (ID, ID_BV, ID_TT),
+  FOREIGN KEY (ID) REFERENCES tai_khoan(ID),
+  FOREIGN KEY (ID_BV, ID_TT) REFERENCES bai_viet(ID_BV, ID_TT)
+);
+
+CREATE TABLE viet_BL
+(
+  ID VARCHAR(10) NOT NULL,
+  ID_BL VARCHAR(10) NOT NULL,
+  ID_TT VARCHAR(10) NOT NULL,
+  ID_BV VARCHAR(10) NOT NULL,
+  PRIMARY KEY (ID, ID_BL, ID_TT, ID_BV),
+  FOREIGN KEY (ID) REFERENCES tai_khoan(ID),
+  FOREIGN KEY (ID_BL, ID_TT, ID_BV) REFERENCES binh_luan(ID_BL, ID_TT, ID_BV)
+);
+
+CREATE TABLE thich_BV
+(
+  ID VARCHAR(10) NOT NULL,
+  ID_BV VARCHAR(10) NOT NULL,
+  ID_TT VARCHAR(10) NOT NULL,
+  PRIMARY KEY (ID, ID_BV, ID_TT),
+  FOREIGN KEY (ID) REFERENCES tai_khoan(ID),
+  FOREIGN KEY (ID_BV, ID_TT) REFERENCES bai_viet(ID_BV, ID_TT)
+);
+
+CREATE TABLE thich_BL
+(
+  ID_BL VARCHAR(10) NOT NULL,
+  ID_TT VARCHAR(10) NOT NULL,
+  ID_BV VARCHAR(10) NOT NULL,
+  ID VARCHAR(10) NOT NULL,
+  PRIMARY KEY (ID_BL, ID_TT, ID_BV, ID),
+  FOREIGN KEY (ID_BL, ID_TT, ID_BV) REFERENCES binh_luan(ID_BL, ID_TT, ID_BV),
+  FOREIGN KEY (ID) REFERENCES tai_khoan(ID)
+);
+
+flush logs;
+
+SELECT 'Loading tai_khoan ...' AS 'INFO';
+source load_tai_khoan.dump;
+
+SELECT 'Loading chu_de ...' AS 'INFO';
+source load_chu_de.dump;
+
+SELECT 'Loading bai_viet ...' AS 'INFO';
+source load_bai_viet.dump;
+
+SELECT 'Loading image ...' AS 'INFO';
+source load_image.dump;
+
+SELECT 'Loading gom_anh ...' AS 'INFO';
+-- source load_gom_anh.dump;

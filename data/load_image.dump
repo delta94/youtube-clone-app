@@ -1,0 +1,10 @@
+INSERT INTO `image` VALUES
+('img001','Một trong ba cây cổ thụ quá khổ, quá tải bị tạm giữ ở Huế.','https://i-vnexpress.vnecdn.net/2018/05/05/ck-7437-1525483051.jpg'),
+('img003','Nhà trai (phải) và nhà gái trong giờ phút làm lễ.','https://i-giaitri.vnecdn.net/2018/05/05/le-vu-quy-1525501503_1200x0.jpg'),
+('img004',NULL,'https://i-thethao.vnecdn.net/2018/05/05/Untitled-8277-1525483822-1745-1525486987.jpg'),
+('img005','Khu vực lô cao su cô gái bị nhóm thanh niên xẻo tai.','https://i-vnexpress.vnecdn.net/2018/05/04/lo-cao-su-4337-1525444563.jpg'),
+('img010','Hai xe tông nhau khi đang đổ đèo.','https://i-vnexpress.vnecdn.net/2018/05/05/tai-nan-2-4718-1525488114.jpg'),
+('img020','Môi giới phát tờ rơi bán đất Nhơn Trạch.','https://i-kinhdoanh.vnecdn.net/2018/05/05/a-tb-dat-Nhon-Trach-5954-1525497462.jpg'),
+('img030','Poster phim "Em gái mưa".','https://i-giaitri.vnecdn.net/2018/05/04/em-gai-mua-6265-1525403665.jpg'),
+('img040','Việt Nam từng gặp Iraq ở vòng loại thứ hai World Cup 2018 khu vực châu Á.','https://i-thethao.vnecdn.net/2018/05/05/vn-4500-1525497354.png'), 
+('img050','Vùng núi tìm thấy thi thể nạn nhân.','https://i-vnexpress.vnecdn.net/2018/04/26/vu-ng-nu-i-ti-m-tha-y-thi-the-4249-2628-1524753649.png');
