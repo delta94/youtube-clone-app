@@ -26,15 +26,14 @@ app.use(expressValidator());
 let data = {
     toDay: Date(),
     content: [],
-    linkPost: [],
-    post: {}
+    post: {}    // use for single page content
 };
 var session;
 
 // Database
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
+    user: 'ngoctin',
     password: '123456',
     database: 'newsfeed'
 });
@@ -45,96 +44,101 @@ db.connect((err) => {
 });
 
 // Get Content for index page
-let mysqlQuery = 'select Noi_dung from bai_viet limit 10';
-db.query(mysqlQuery, (err, result) => {
-    if(err){
-        console.log(err);
-    }
-    else {
-        result.forEach((bv) => {
-            let filePath = __dirname + "/data/post/" + bv["Noi_dung"];
-            // Read file to fetch content
-            fs.readFile(filePath, 'utf8', (err, fileContent) => {
-                if(err) throw err;
-                let item = JSON.parse(fileContent);
-                item.linkPost = bv["Noi_dung"].split(".")[0];
-                data.content.push(item);
+function getDataContent(callBack){
+    if(data.content.length > 0) return;
+    let mysqlQuery = 'select Noi_dung from bai_viet limit 10';
+    db.query(mysqlQuery, (err, result) => {
+        if(err){
+            console.log(err);
+        }
+        else {
+            result.forEach((bv) => {
+                let filePath = __dirname + "/data/post/" + bv["Noi_dung"];
+                // Read file to fetch content
+                fs.readFile(filePath, 'utf8', (err, fileContent) => {
+                    if(err) throw err;
+                    let item = JSON.parse(fileContent);
+                    item.linkPost = bv["Noi_dung"].split(".")[0];
+                    data.content.push(item);
+                });
             });
-        });
-    }
-});
+        }
+    }, callBack);
+}
 
-app.get('/thoisu/giaothong/:fileName', (req, res) => {
-    let fileName = "thoisu/giaothong/" + req.params.fileName + ".json";
-    let mysql = `select * from bai_viet where Noi_dung = "${fileName}" limit 1`;
+function getDataByTopic(topic, number = 5, callBack){
+    let mysql = `select * from bai_viet where Noi_dung like '%${topic}%' limit ${number}`;
+    data[topic] = [];
     db.query(mysql, (err, result) => {
         if(err){
             console.log(err);
-            res.render('404', {data: data});
-        }
-        else if(result.length > 0){
-            let filePath = __dirname + "/data/post/" + result[0]["Noi_dung"];
-            fs.readFile(filePath, (err, fileContent) => {
-                if(err){
-                    console.log(err);
-                    res.redirect('/404');
-                }
-                else{
-                    data.post = JSON.parse(fileContent);
-                    res.render('single_page', {data: data});
-                }
-                
-            });
         }
         else{
-            res.redirect('/404');
+            result.forEach((post) => {
+                let filePath = __dirname + '/data/post/' + post['Noi_dung'];
+                // Read file to fetch content
+                fs.readFile(filePath, 'utf8', (err, fileContent) => {
+                    if(err) throw err;
+                    let item = JSON.parse(fileContent);
+                    item.linkPost = post['Noi_dung'].split('.')[0];
+                    data[topic].push(item);
+                    //console.log(item);
+                });
+            });
         }
+    }, callBack);
+}
+
+getDataContent();
+getDataByTopic('thoisu');
+getDataByTopic('kinhdoanh');
+getDataByTopic('giaitri');
+getDataByTopic('thethao');
+getDataByTopic('phapluat');
+
+function handleRequestForAPost(route){
+    app.get(route + '/:fileName', (req, res) => {
+        let fileName = route.slice(1, route.length) + '/' + req.params.fileName + ".json";
+        console.log(fileName);
+        let mysql = `select * from bai_viet where Noi_dung = "${fileName}" limit 1`;
+        db.query(mysql, (err, result) => {
+            if(err){
+                console.log(err);
+                res.render('404', {data: data});
+            }
+            else if(result.length > 0){
+                let filePath = __dirname + "/data/post/" + result[0]["Noi_dung"];
+                fs.readFile(filePath, (err, fileContent) => {
+                    if(err){
+                        console.log(err);
+                        res.redirect('/404');
+                    }
+                    else{
+                        data.post = JSON.parse(fileContent);
+                        res.render('single_page', {data: data});
+                    }
+                    
+                });
+            }
+            else{
+                res.redirect('/404');
+            }
+        });
     });
-});
+}
 
-app.get('/thoisu/nongnghiepsach/:fileName', (req, res) => {
-    
-});
-
-app.get('/kinhdoanh/doanhnghiep/:fileName', (req, res) => {
-    
-});
-
-app.get('/kinhdoanh/batdongsan/:fileName', (req, res) => {
-    
-});
-
-app.get('/kinhdoanh/chungkhoan/:fileName', (req, res) => {
-    
-});
-
-app.get('/giaitri/phim/:fileName', (req, res) => {
-    
-});
-
-app.get('/giaitri/thoitrang/:fileName', (req, res) => {
-    
-});
-
-app.get('/giaitri/nhac/:fileName', (req, res) => {
-    
-});
-
-app.get('/thethao/bongda/:fileName', (req, res) => {
-    
-});
-
-app.get('/thethao/tennis/:fileName', (req, res) => {
-    
-});
-
-app.get('/thethao/hautruong/:fileName', (req, res) => {
-    
-});
-
-app.get('/phapluat/hosophaan/:fileName', (req, res) => {
-
-});
+handleRequestForAPost('/thoisu/giaothong');
+handleRequestForAPost('/thoisu/nongnghiepsach');
+handleRequestForAPost('/kinhdoanh/doanhnghiep');
+handleRequestForAPost('/kinhdoanh/batdongsan');
+handleRequestForAPost('/kinhdoanh/chungkhoan');
+handleRequestForAPost('/giaitri/phim');
+handleRequestForAPost('giaitri/thoitrang');
+handleRequestForAPost('/giaitri/nhac');
+handleRequestForAPost('/thethao/bongda');
+handleRequestForAPost('/thethao/tennis');
+handleRequestForAPost('/thethao/hautruong');
+handleRequestForAPost('/phapluat/hosophaan');
 
 app.get('/signin', (req, res) => {
     res.render('signin', {data: data});
@@ -217,6 +221,6 @@ app.get('*', (req, res) => {
     res.render('404');
 });
 
-app.listen(3000, () => {
-    console.log('Server listen on port 3000');
+app.listen(3001, () => {
+    console.log('Server listen on port 3001');
 });

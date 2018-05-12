@@ -186,26 +186,31 @@
             <div class="single_post_content_left">
               <ul class="business_catgnav  wow fadeInDown">
                 <li>
-                  <figure class="bsbig_fig"> <a href="single_page" class="featured_img"> <img alt="" src="images/featured_img1.jpg"> <span class="overlay"></span> </a>
-                    <figcaption> <a href="single_page">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-                    <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
-                  </figure>
+                  <% for(let i = 0; i < data.thoisu[0].article.length; i++){ %>
+                    <% if(data.thoisu[0].article[i].image){ %>
+                      <figure class="bsbig_fig"> <a href="<%= data.thoisu[0].linkPost %>" class="featured_img"> <img alt="<%= data.thoisu[0].article[i].imageName %>" src="<%= data.thoisu[0].article[i].image %>"> <span class="overlay"></span> </a>
+                        <figcaption> <a href="<%= data.thoisu[0].linkPost %>"><%= data.thoisu[0].title %></a> </figcaption>
+                        <p><%= data.thoisu[0].title.description %></p>
+                      </figure>
+                      <% break; %>
+                    <% } %>
+                  <% } %>
                 </li>
               </ul>
             </div>
             <div class="single_post_content_right">
               <ul class="spost_nav">
-                <% for(let i = 0; i < 4; i++){ %>
+                <% for(let i = 1; i < data.thoisu.length; i++){ %>
                   <% let imageLink; %>
-                  <% for(let j = 0; j < data.content[i].article.length; j++){ %>
-                    <% if(data.content[i].article[j].image){ %>
-                      <% imageLink = data.content[i].article[j].image; %>
+                  <% for(let j = 0; j < data.thoisu[i].article.length; j++){ %>
+                    <% if(data.thoisu[i].article[j].image){ %>
+                      <% imageLink = data.thoisu[i].article[j].image; %>
                       <% break; %>
                     <% } %>
                   <% } %>
                   <li>
-                    <div class="media wow fadeInDown"> <a href="<%= data.content[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
-                      <div class="media-body"> <a href="<%= data.content[i].linkPost %>" class="catg_title"><%= data.content[i].title %></a> </div>
+                    <div class="media wow fadeInDown"> <a href="<%= data.thoisu[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
+                      <div class="media-body"> <a href="<%= data.thoisu[i].linkPost %>" class="catg_title"><%= data.thoisu[i].title %></a> </div>
                     </div>
                   </li>
                 <% } %>
@@ -218,68 +223,67 @@
                 <h2><span>Kinh doanh</span></h2>
                 <ul class="business_catgnav wow fadeInDown">
                   <li>
-                    <figure class="bsbig_fig"> <a href="single_page" class="featured_img"> <img alt="" src="images/featured_img2.jpg"> <span class="overlay"></span> </a>
-                      <figcaption> <a href="single_page">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-                      <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
-                    </figure>
+                    <% for(let i = 0; i < data.kinhdoanh[0].article.length; i++){ %>
+                      <% if(data.kinhdoanh[0].article[i].image){ %>
+                        <figure class="bsbig_fig"> <a href="<%= data.kinhdoanh[0].linkPost %>" class="featured_img"> <img alt="<%= data.kinhdoanh[0].article[i].imageName %>" src="<%= data.kinhdoanh[0].article[i].image %>"> <span class="overlay"></span> </a>
+                          <figcaption> <a href="<%= data.kinhdoanh[0].linkPost %>"><%= data.kinhdoanh[0].title %></a> </figcaption>
+                          <p><%= data.kinhdoanh[0].description %></p>
+                        </figure>
+                        <% break; %>
+                      <% } %>
+                    <% } %>
                   </li>
                 </ul>
                 <ul class="spost_nav">
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                      <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                      <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                      <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                      <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                    </div>
-                  </li>
+                  <% for(let i = 1; i < data.kinhdoanh.length; i++){ %>
+                    <% let imageLink; %>
+                    <% for(let j = 0; j < data.kinhdoanh[i].article.length; j++){ %>
+                      <% if(data.kinhdoanh[i].article[j].image){ %>
+                        <% imageLink = data.kinhdoanh[i].article[j].image; %>
+                        <% break; %>
+                      <% } %>
+                    <% } %>
+                    <li>
+                      <div class="media wow fadeInDown"> <a href="<%= data.kinhdoanh[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
+                        <div class="media-body"> <a href="<%= data.kinhdoanh[i].linkPost %>" class="catg_title"><%= data.kinhdoanh[i].title %></a> </div>
+                      </div>
+                    </li>
+                  <% } %>
                 </ul>
               </div>
             </div>
             <div class="technology">
               <div class="single_post_content">
-                <h2><span>Giai tri</span></h2>
-                <ul class="business_catgnav">
+                <h2><span>Giải trí</span></h2>
+                <ul class="business_catgnav wow fadeInDown">
                   <li>
-                    <figure class="bsbig_fig wow fadeInDown"> <a href="single_page" class="featured_img"> <img alt="" src="images/featured_img3.jpg"> <span class="overlay"></span> </a>
-                      <figcaption> <a href="single_page">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-                      <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
-                    </figure>
+                    <% for(let i = 0; i < data.giaitri[0].article.length; i++){ %>
+                      <% if(data.giaitri[0].article[i].image){ %>
+                        <figure class="bsbig_fig"> <a href="<%= data.giaitri[0].linkPost %>" class="featured_img"> <img alt="<%= data.giaitri[0].article[i].imageName %>" src="<%= data.giaitri[0].article[i].image %>"> <span class="overlay"></span> </a>
+                          <figcaption> <a href="<%= data.giaitri[0].linkPost %>"><%= data.giaitri[0].title %></a> </figcaption>
+                          <p><%= data.giaitri[0].description %></p>
+                          <% console.log(`description: ${data.giaitri[0].title.description}`); %>
+                        </figure>
+                        <% break; %>
+                      <% } %>
+                    <% } %>
                   </li>
                 </ul>
                 <ul class="spost_nav">
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                      <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                      <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                      <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                      <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                    </div>
-                  </li>
+                  <% for(let i = 1; i < data.giaitri.length; i++){ %>
+                    <% let imageLink; %>
+                    <% for(let j = 0; j < data.giaitri[i].article.length; j++){ %>
+                      <% if(data.giaitri[i].article[j].image){ %>
+                        <% imageLink = data.giaitri[i].article[j].image; %>
+                        <% break; %>
+                      <% } %>
+                    <% } %>
+                    <li>
+                      <div class="media wow fadeInDown"> <a href="<%= data.giaitri[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
+                        <div class="media-body"> <a href="<%= data.giaitri[i].linkPost %>" class="catg_title"><%= data.giaitri[i].title %></a> </div>
+                      </div>
+                    </li>
+                  <% } %>
                 </ul>
               </div>
             </div>
@@ -287,74 +291,72 @@
           <div class="single_post_content">
             <h2><span>Thể thao</span></h2>
             <div class="single_post_content_left">
-              <ul class="business_catgnav">
+              <ul class="business_catgnav  wow fadeInDown">
                 <li>
-                  <figure class="bsbig_fig  wow fadeInDown"> <a class="featured_img" href="single_page"> <img src="images/featured_img1.jpg" alt=""> <span class="overlay"></span> </a>
-                    <figcaption> <a href="single_page">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-                    <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
-                  </figure>
+                  <% for(let i = 0; i < data.thethao[0].article.length; i++){ %>
+                    <% if(data.thethao[0].article[i].image){ %>
+                      <figure class="bsbig_fig"> <a href="<%= data.thethao[0].linkPost %>" class="featured_img"> <img alt="<%= data.thethao[0].article[i].imageName %>" src="<%= data.thethao[0].article[i].image %>"> <span class="overlay"></span> </a>
+                        <figcaption> <a href="<%= data.thethao[0].linkPost %>"><%= data.thethao[0].title %></a> </figcaption>
+                        <p><%= data.thethao[0].title.description %></p>
+                      </figure>
+                      <% break; %>
+                    <% } %>
+                  <% } %>
                 </li>
               </ul>
             </div>
             <div class="single_post_content_right">
               <ul class="spost_nav">
-                <li>
-                  <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                    <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                    <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                    <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                    <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                  </div>
-                </li>
+                <% for(let i = 1; i < data.thethao.length; i++){ %>
+                  <% let imageLink; %>
+                  <% for(let j = 0; j < data.thethao[i].article.length; j++){ %>
+                    <% if(data.thethao[i].article[j].image){ %>
+                      <% imageLink = data.thethao[i].article[j].image; %>
+                      <% break; %>
+                    <% } %>
+                  <% } %>
+                  <li>
+                    <div class="media wow fadeInDown"> <a href="<%= data.thethao[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
+                      <div class="media-body"> <a href="<%= data.thethao[i].linkPost %>" class="catg_title"><%= data.thethao[i].title %></a> </div>
+                    </div>
+                  </li>
+                <% } %>
               </ul>
             </div>
           </div>
           <div class="single_post_content">
             <h2><span>Pháp luật</span></h2>
             <div class="single_post_content_left">
-              <ul class="business_catgnav">
+              <ul class="business_catgnav  wow fadeInDown">
                 <li>
-                  <figure class="bsbig_fig  wow fadeInDown"> <a class="featured_img" href="single_page"> <img src="images/featured_img1.jpg" alt=""> <span class="overlay"></span> </a>
-                    <figcaption> <a href="single_page">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-                    <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
-                  </figure>
+                  <% for(let i = 0; i < data.phapluat[0].article.length; i++){ %>
+                    <% if(data.phapluat[0].article[i].image){ %>
+                      <figure class="bsbig_fig"> <a href="<%= data.phapluat[0].linkPost %>" class="featured_img"> <img alt="<%= data.phapluat[0].article[i].imageName %>" src="<%= data.phapluat[0].article[i].image %>"> <span class="overlay"></span> </a>
+                        <figcaption> <a href="<%= data.phapluat[0].linkPost %>"><%= data.phapluat[0].title %></a> </figcaption>
+                        <p><%= data.phapluat[0].title.description %></p>
+                      </figure>
+                      <% break; %>
+                    <% } %>
+                  <% } %>
                 </li>
               </ul>
             </div>
             <div class="single_post_content_right">
               <ul class="spost_nav">
-                <li>
-                  <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                    <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                    <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                    <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="single_page" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                    <div class="media-body"> <a href="single_page" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                  </div>
-                </li>
+                <% for(let i = 1; i < data.phapluat.length; i++){ %>
+                  <% let imageLink; %>
+                  <% for(let j = 0; j < data.phapluat[i].article.length; j++){ %>
+                    <% if(data.phapluat[i].article[j].image){ %>
+                      <% imageLink = data.phapluat[i].article[j].image; %>
+                      <% break; %>
+                    <% } %>
+                  <% } %>
+                  <li>
+                    <div class="media wow fadeInDown"> <a href="<%= data.phapluat[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
+                      <div class="media-body"> <a href="<%= data.phapluat[i].linkPost %>" class="catg_title"><%= data.phapluat[i].title %></a> </div>
+                    </div>
+                  </li>
+                <% } %>
               </ul>
             </div>
           </div>
