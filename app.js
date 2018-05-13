@@ -23,12 +23,13 @@ app.use(cookieParser());
 app.use(expressValidator());
 
 // Data for index page
-let data = {
+var data = {
     toDay: Date(),
     content: [],
     post: {}    // use for single page content
 };
 var session;
+var loadDone = false;   // specify whether the data is fully loaded
 
 // Database
 const db = mysql.createConnection({
@@ -44,29 +45,40 @@ db.connect((err) => {
 });
 
 // Get Content for index page
-function getDataContent(callBack){
-    if(data.content.length > 0) return;
-    let mysqlQuery = 'select Noi_dung from bai_viet limit 10';
+function getDataContent(topic = '', callBack = null){
+    data.content = [];
+    console.log(`topic: ${topic}`);
+    let mysqlQuery = `select Noi_dung from bai_viet where Noi_dung like "%${topic}%" limit 10`;
+    //console.log(mysqlQuery);
     db.query(mysqlQuery, (err, result) => {
         if(err){
             console.log(err);
         }
         else {
+            let numberOfPost = 0;
+            //console.log(result.length);
             result.forEach((bv) => {
                 let filePath = __dirname + "/data/post/" + bv["Noi_dung"];
+                //console.log(filePath);
                 // Read file to fetch content
                 fs.readFile(filePath, 'utf8', (err, fileContent) => {
                     if(err) throw err;
+                    numberOfPost++;
                     let item = JSON.parse(fileContent);
                     item.linkPost = bv["Noi_dung"].split(".")[0];
+                    //console.log(item);
                     data.content.push(item);
+                    if(numberOfPost == result.length && callBack != null){
+                        console.log('complete request');
+                        callBack();
+                    }
                 });
             });
         }
-    }, callBack);
+    });
 }
 
-function getDataByTopic(topic, number = 5, callBack){
+function getDataByTopic(topic, number = 5, callBack = null){
     let mysql = `select * from bai_viet where Noi_dung like '%${topic}%' limit ${number}`;
     data[topic] = [];
     db.query(mysql, (err, result) => {
@@ -74,27 +86,25 @@ function getDataByTopic(topic, number = 5, callBack){
             console.log(err);
         }
         else{
+            let numberOfPost = 0;
             result.forEach((post) => {
                 let filePath = __dirname + '/data/post/' + post['Noi_dung'];
                 // Read file to fetch content
                 fs.readFile(filePath, 'utf8', (err, fileContent) => {
                     if(err) throw err;
+                    numberOfPost++;
                     let item = JSON.parse(fileContent);
                     item.linkPost = post['Noi_dung'].split('.')[0];
                     data[topic].push(item);
                     //console.log(item);
+                    if(numberOfPost == number && callBack){
+                        callBack();
+                    }
                 });
             });
         }
-    }, callBack);
+    });
 }
-
-getDataContent();
-getDataByTopic('thoisu');
-getDataByTopic('kinhdoanh');
-getDataByTopic('giaitri');
-getDataByTopic('thethao');
-getDataByTopic('phapluat');
 
 function handleRequestForAPost(route){
     app.get(route + '/:fileName', (req, res) => {
@@ -127,17 +137,76 @@ function handleRequestForAPost(route){
     });
 }
 
+function handleRequestForATopic(route){
+    app.get(route, (req, res) => {
+        console.log(`route: ${route}`);
+        let topic = route.slice(1, route.length);
+        getDataContent(topic, () => {
+            res.render('index', {data: data});
+        });
+    });
+}
+
+function getDataForAllTopics(callBack = null){
+    let topics = ['thoisu', 'kinhdoanh', 'giaitri', 'thethao', 'phapluat'];
+    let i;
+    for(i = 0; i < topics.length; i++){
+        if(!data[topics[i]]) break;
+    }
+
+    if(i == topics.length - 1 && callBack){
+        callBack();
+        return;
+    }
+
+    // Some topics are not loaded
+    let numberOfTopics = 0;
+    topics.forEach((topic) => {
+        getDataByTopic(topic, 5, () => {
+            numberOfTopics++;
+            if(numberOfTopics == topics.length && callBack){
+                callBack();
+            }
+        });
+    });
+}
+
+getDataForAllTopics(() => {loadDone = true;});
+
+handleRequestForATopic('/thoisu');
+handleRequestForATopic('/thoisu/giaothong');
+handleRequestForATopic('/thoisu/nongnghiepsach');
+handleRequestForATopic('/kinhdoanh');
+handleRequestForATopic('/kinhdoanh/doanhnghiep');
+handleRequestForATopic('/kinhdoanh/batdongsan');
+handleRequestForATopic('/kinhdoanh/chungkhoan');
+handleRequestForATopic('/giaitri');
+handleRequestForATopic('/giaitri/phim');
+handleRequestForATopic('/giaitri/thoitrang');
+handleRequestForATopic('/giaitri/nhac');
+handleRequestForATopic('/thethao');
+handleRequestForATopic('/thethao/bongda');
+handleRequestForATopic('/thethao/tennis');
+handleRequestForATopic('/thethao/hautruong');
+handleRequestForATopic('/phapluat');
+handleRequestForATopic('/phapluat/hosophaan');
+
+handleRequestForAPost('/thoisu');
 handleRequestForAPost('/thoisu/giaothong');
 handleRequestForAPost('/thoisu/nongnghiepsach');
+handleRequestForAPost('/kinhdoanh');
 handleRequestForAPost('/kinhdoanh/doanhnghiep');
 handleRequestForAPost('/kinhdoanh/batdongsan');
 handleRequestForAPost('/kinhdoanh/chungkhoan');
+handleRequestForAPost('/giaitri');
 handleRequestForAPost('/giaitri/phim');
 handleRequestForAPost('giaitri/thoitrang');
 handleRequestForAPost('/giaitri/nhac');
+handleRequestForAPost('/thethao');
 handleRequestForAPost('/thethao/bongda');
 handleRequestForAPost('/thethao/tennis');
 handleRequestForAPost('/thethao/hautruong');
+handleRequestForAPost('/phapluat');
 handleRequestForAPost('/phapluat/hosophaan');
 
 app.get('/signin', (req, res) => {
@@ -196,7 +265,10 @@ app.get('/', (req, res) => {
     if(req.session.username && req.session.username == 'admin'){
         res.redirect('/admin');
     } else{
-        res.render('index', {data: data});        
+        getDataContent('', () => {
+            res.render('index', {data: data});
+        });
+        //res.render('index', {data: data});        
     }
 });
 

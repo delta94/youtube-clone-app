@@ -5,6 +5,12 @@ jQuery(document).ready(function() {
     }, function() {
         $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
     });
+
+    // for click dropdown menu
+    $('ul.nav li.dropdown a').click(function(){
+        location.replace($(this).attr('href'));
+    });
+
     // slick slider call 
     $('.slick_slider').slick({
         dots: true,

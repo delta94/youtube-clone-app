@@ -47,7 +47,7 @@
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="header_bottom">
-          <div class="logo_area"><a href="index.html" class="logo"><img src="images/logo.jpg" alt=""></a></div>
+          <div class="logo_area"><a href="/" class="logo"><img src="images/logo.jpg" alt=""></a></div>
           <div class="add_banner"><a href="#"><img src="images/addbanner_728x90_V1.jpg" alt=""></a></div>
         </div>
       </div>
@@ -60,37 +60,37 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav main_nav">
-          <li class="active"><a href="index.html"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
-          <li class="dropdown"> <a href="/thoi_su" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Thời sự</a>
+          <li class="active"><a href="/"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
+          <li class="dropdown"> <a href="/thoisu" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Thời sự</a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="/thoi_su/giao_thong">Giao thông</a></li>
-              <li><a href="/thoi_su/nong_nghiep_sach">Nông nghiệp sạch</a></li>
+              <li><a href="/thoisu/giaothong">Giao thông</a></li>
+              <li><a href="/thoisu/nongnghiepsach">Nông nghiệp sạch</a></li>
             </ul>
           </li>
-          <li class="dropdown"> <a href="/kinh_doanh" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Kinh doanh</a>
+          <li class="dropdown"> <a href="/kinhdoanh" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Kinh doanh</a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="/kinh_doanh/doanh_nghiep">Doanh nghiệp</a></li>
-              <li><a href="/kinh_doanh/bat_dong_san">Bất động sản</a></li>
-              <li><a href="/kinh_doanh/chung_khoan">Chứng khoán</a></li>
+              <li><a href="/kinhdoanh/doanhnghiep">Doanh nghiệp</a></li>
+              <li><a href="/kinhdoanh/batdongsan">Bất động sản</a></li>
+              <li><a href="/kinhdoanh/chungkhoan">Chứng khoán</a></li>
             </ul>
           </li>
-          <li class="dropdown"> <a href="/giai_tri" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Giải trí</a>
+          <li class="dropdown"> <a href="/giaitri" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Giải trí</a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="/giai_tri/phim">Phim</a></li>
-              <li><a href="/giai_tri/thoi_trang">Thời trang</a></li>
-              <li><a href="/giai_tri/nhac">Nhạc</a></li>
+              <li><a href="/giaitri/phim">Phim</a></li>
+              <li><a href="/giaitri/thoitrang">Thời trang</a></li>
+              <li><a href="/giaitri/nhac">Nhạc</a></li>
             </ul>
           </li>
-          <li class="dropdown"> <a href="/the_thao" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Thể thao</a>
+          <li class="dropdown"> <a href="/thethao" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Thể thao</a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="/the_thao/bong_da">Bóng đá</a></li>
-              <li><a href="/the_thao/tennis">Tennis</a></li>
-              <li><a href="/the_thao/hau_truong">Hậu trường</a></li>
+              <li><a href="/thethao/bongda">Bóng đá</a></li>
+              <li><a href="/thethao/tennis">Tennis</a></li>
+              <li><a href="/thethao/hautruong">Hậu trường</a></li>
             </ul>
           </li>
-          <li class="dropdown"> <a href="/phap_luat" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pháp luật</a>
+          <li class="dropdown"> <a href="/phapluat" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pháp luật</a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="/phap_luat/ho_so_pha_an">Hồ sơ phá án</a></li>
+              <li><a href="/phapluat/hosophaan">Hồ sơ phá án</a></li>
             </ul>
           </li>
         </ul>
@@ -110,7 +110,7 @@
                   <% break; %>
                 <% } %>
               <% } %>
-              <li><a href="<%= data.content[i].linkPost %>"><img src="<%= imageLink %>" alt=""><%= data.content[i].title %></a></li>
+              <li><a href="/<%= data.content[i].linkPost %>"><img src="<%= imageLink %>" alt=""><%= data.content[i].title %></a></li>
             <% } %>
           </ul>
           <div class="social_area">
@@ -141,9 +141,9 @@
                 <% break; %>
               <% } %>
             <% } %>
-            <div class="single_iteam"> <a href="<%= data.content[i].linkPost %>"> <img src="<%= imageLink %>" alt=""></a>
+            <div class="single_iteam"> <a href="/<%= data.content[i].linkPost %>"> <img src="<%= imageLink %>" alt=""></a>
               <div class="slider_article">
-                <h2><a class="slider_tittle" href="<%= data.content[i].linkPost %>"><%= data.content[i].title %></a></h2>
+                <h2><a class="slider_tittle" href="/<%= data.content[i].linkPost %>"><%= data.content[i].title %></a></h2>
                 <p><%= data.content[i].description %></p>
               </div>
             </div>
@@ -156,7 +156,9 @@
           <div class="latest_post_container">
             <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
             <ul class="latest_postnav">
-              <% for(let i = 0; i < 5; i++){ %>
+              <% var maxlength = 5; %>
+              <% if(data.content.length < maxlength) maxlength = data.content.length; %>
+              <% for(let i = 0; i < maxlength; i++){ %>
                 <% let imageLink; %>
                 <% for(let j = 0; j < data.content[i].article.length; j++){ %>
                   <% if(data.content[i].article[j].image){ %>
@@ -165,8 +167,8 @@
                   <% } %>
                 <% } %>
                 <li>
-                  <div class="media"> <a href="<%= data.content[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
-                    <div class="media-body"> <a href="<%= data.content[i].linkPost %>" class="catg_title"><%= data.content[i].title %></a> </div>
+                  <div class="media"> <a href="/<%= data.content[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
+                    <div class="media-body"> <a href="/<%= data.content[i].linkPost %>" class="catg_title"><%= data.content[i].title %></a> </div>
                   </div>
                 </li>
               <% } %>
@@ -188,8 +190,8 @@
                 <li>
                   <% for(let i = 0; i < data.thoisu[0].article.length; i++){ %>
                     <% if(data.thoisu[0].article[i].image){ %>
-                      <figure class="bsbig_fig"> <a href="<%= data.thoisu[0].linkPost %>" class="featured_img"> <img alt="<%= data.thoisu[0].article[i].imageName %>" src="<%= data.thoisu[0].article[i].image %>"> <span class="overlay"></span> </a>
-                        <figcaption> <a href="<%= data.thoisu[0].linkPost %>"><%= data.thoisu[0].title %></a> </figcaption>
+                      <figure class="bsbig_fig"> <a href="/<%= data.thoisu[0].linkPost %>" class="featured_img"> <img alt="<%= data.thoisu[0].article[i].imageName %>" src="<%= data.thoisu[0].article[i].image %>"> <span class="overlay"></span> </a>
+                        <figcaption> <a href="/<%= data.thoisu[0].linkPost %>"><%= data.thoisu[0].title %></a> </figcaption>
                         <p><%= data.thoisu[0].title.description %></p>
                       </figure>
                       <% break; %>
@@ -200,7 +202,9 @@
             </div>
             <div class="single_post_content_right">
               <ul class="spost_nav">
-                <% for(let i = 1; i < data.thoisu.length; i++){ %>
+                <% var maxlength = 4; %>
+                <% if(data.thoisu.length < maxlength) maxlength = data.thoisu.length; %>
+                <% for(let i = 1; i < maxlength; i++){ %>
                   <% let imageLink; %>
                   <% for(let j = 0; j < data.thoisu[i].article.length; j++){ %>
                     <% if(data.thoisu[i].article[j].image){ %>
@@ -209,8 +213,8 @@
                     <% } %>
                   <% } %>
                   <li>
-                    <div class="media wow fadeInDown"> <a href="<%= data.thoisu[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
-                      <div class="media-body"> <a href="<%= data.thoisu[i].linkPost %>" class="catg_title"><%= data.thoisu[i].title %></a> </div>
+                    <div class="media wow fadeInDown"> <a href="/<%= data.thoisu[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
+                      <div class="media-body"> <a href="/<%= data.thoisu[i].linkPost %>" class="catg_title"><%= data.thoisu[i].title %></a> </div>
                     </div>
                   </li>
                 <% } %>
@@ -225,8 +229,8 @@
                   <li>
                     <% for(let i = 0; i < data.kinhdoanh[0].article.length; i++){ %>
                       <% if(data.kinhdoanh[0].article[i].image){ %>
-                        <figure class="bsbig_fig"> <a href="<%= data.kinhdoanh[0].linkPost %>" class="featured_img"> <img alt="<%= data.kinhdoanh[0].article[i].imageName %>" src="<%= data.kinhdoanh[0].article[i].image %>"> <span class="overlay"></span> </a>
-                          <figcaption> <a href="<%= data.kinhdoanh[0].linkPost %>"><%= data.kinhdoanh[0].title %></a> </figcaption>
+                        <figure class="bsbig_fig"> <a href="/<%= data.kinhdoanh[0].linkPost %>" class="featured_img"> <img alt="<%= data.kinhdoanh[0].article[i].imageName %>" src="<%= data.kinhdoanh[0].article[i].image %>"> <span class="overlay"></span> </a>
+                          <figcaption> <a href="/<%= data.kinhdoanh[0].linkPost %>"><%= data.kinhdoanh[0].title %></a> </figcaption>
                           <p><%= data.kinhdoanh[0].description %></p>
                         </figure>
                         <% break; %>
@@ -235,7 +239,9 @@
                   </li>
                 </ul>
                 <ul class="spost_nav">
-                  <% for(let i = 1; i < data.kinhdoanh.length; i++){ %>
+                  <% var maxlength = 4; %>
+                  <% if(data.kinhdoanh.length < maxlength) maxlength = data.kinhdoanh.length; %>
+                  <% for(let i = 1; i < maxlength; i++){ %>
                     <% let imageLink; %>
                     <% for(let j = 0; j < data.kinhdoanh[i].article.length; j++){ %>
                       <% if(data.kinhdoanh[i].article[j].image){ %>
@@ -244,8 +250,8 @@
                       <% } %>
                     <% } %>
                     <li>
-                      <div class="media wow fadeInDown"> <a href="<%= data.kinhdoanh[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
-                        <div class="media-body"> <a href="<%= data.kinhdoanh[i].linkPost %>" class="catg_title"><%= data.kinhdoanh[i].title %></a> </div>
+                      <div class="media wow fadeInDown"> <a href="/<%= data.kinhdoanh[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
+                        <div class="media-body"> <a href="/<%= data.kinhdoanh[i].linkPost %>" class="catg_title"><%= data.kinhdoanh[i].title %></a> </div>
                       </div>
                     </li>
                   <% } %>
@@ -259,10 +265,9 @@
                   <li>
                     <% for(let i = 0; i < data.giaitri[0].article.length; i++){ %>
                       <% if(data.giaitri[0].article[i].image){ %>
-                        <figure class="bsbig_fig"> <a href="<%= data.giaitri[0].linkPost %>" class="featured_img"> <img alt="<%= data.giaitri[0].article[i].imageName %>" src="<%= data.giaitri[0].article[i].image %>"> <span class="overlay"></span> </a>
-                          <figcaption> <a href="<%= data.giaitri[0].linkPost %>"><%= data.giaitri[0].title %></a> </figcaption>
+                        <figure class="bsbig_fig"> <a href="/<%= data.giaitri[0].linkPost %>" class="featured_img"> <img alt="<%= data.giaitri[0].article[i].imageName %>" src="<%= data.giaitri[0].article[i].image %>"> <span class="overlay"></span> </a>
+                          <figcaption> <a href="/<%= data.giaitri[0].linkPost %>"><%= data.giaitri[0].title %></a> </figcaption>
                           <p><%= data.giaitri[0].description %></p>
-                          <% console.log(`description: ${data.giaitri[0].title.description}`); %>
                         </figure>
                         <% break; %>
                       <% } %>
@@ -270,7 +275,9 @@
                   </li>
                 </ul>
                 <ul class="spost_nav">
-                  <% for(let i = 1; i < data.giaitri.length; i++){ %>
+                  <% var maxlength = 4; %>
+                  <% if(data.giaitri.length < maxlength) maxlength = data.giaitri.length; %>
+                  <% for(let i = 1; i < maxlength; i++){ %>
                     <% let imageLink; %>
                     <% for(let j = 0; j < data.giaitri[i].article.length; j++){ %>
                       <% if(data.giaitri[i].article[j].image){ %>
@@ -279,8 +286,8 @@
                       <% } %>
                     <% } %>
                     <li>
-                      <div class="media wow fadeInDown"> <a href="<%= data.giaitri[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
-                        <div class="media-body"> <a href="<%= data.giaitri[i].linkPost %>" class="catg_title"><%= data.giaitri[i].title %></a> </div>
+                      <div class="media wow fadeInDown"> <a href="/<%= data.giaitri[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
+                        <div class="media-body"> <a href="/<%= data.giaitri[i].linkPost %>" class="catg_title"><%= data.giaitri[i].title %></a> </div>
                       </div>
                     </li>
                   <% } %>
@@ -295,8 +302,8 @@
                 <li>
                   <% for(let i = 0; i < data.thethao[0].article.length; i++){ %>
                     <% if(data.thethao[0].article[i].image){ %>
-                      <figure class="bsbig_fig"> <a href="<%= data.thethao[0].linkPost %>" class="featured_img"> <img alt="<%= data.thethao[0].article[i].imageName %>" src="<%= data.thethao[0].article[i].image %>"> <span class="overlay"></span> </a>
-                        <figcaption> <a href="<%= data.thethao[0].linkPost %>"><%= data.thethao[0].title %></a> </figcaption>
+                      <figure class="bsbig_fig"> <a href="/<%= data.thethao[0].linkPost %>" class="featured_img"> <img alt="<%= data.thethao[0].article[i].imageName %>" src="<%= data.thethao[0].article[i].image %>"> <span class="overlay"></span> </a>
+                        <figcaption> <a href="/<%= data.thethao[0].linkPost %>"><%= data.thethao[0].title %></a> </figcaption>
                         <p><%= data.thethao[0].title.description %></p>
                       </figure>
                       <% break; %>
@@ -307,7 +314,9 @@
             </div>
             <div class="single_post_content_right">
               <ul class="spost_nav">
-                <% for(let i = 1; i < data.thethao.length; i++){ %>
+                <% var maxlength = 4; %>
+                <% if(data.thethao.length < maxlength) maxlength = data.thethao.length; %>
+                <% for(let i = 1; i < maxlength; i++){ %>
                   <% let imageLink; %>
                   <% for(let j = 0; j < data.thethao[i].article.length; j++){ %>
                     <% if(data.thethao[i].article[j].image){ %>
@@ -316,8 +325,8 @@
                     <% } %>
                   <% } %>
                   <li>
-                    <div class="media wow fadeInDown"> <a href="<%= data.thethao[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
-                      <div class="media-body"> <a href="<%= data.thethao[i].linkPost %>" class="catg_title"><%= data.thethao[i].title %></a> </div>
+                    <div class="media wow fadeInDown"> <a href="/<%= data.thethao[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
+                      <div class="media-body"> <a href="/<%= data.thethao[i].linkPost %>" class="catg_title"><%= data.thethao[i].title %></a> </div>
                     </div>
                   </li>
                 <% } %>
@@ -331,8 +340,8 @@
                 <li>
                   <% for(let i = 0; i < data.phapluat[0].article.length; i++){ %>
                     <% if(data.phapluat[0].article[i].image){ %>
-                      <figure class="bsbig_fig"> <a href="<%= data.phapluat[0].linkPost %>" class="featured_img"> <img alt="<%= data.phapluat[0].article[i].imageName %>" src="<%= data.phapluat[0].article[i].image %>"> <span class="overlay"></span> </a>
-                        <figcaption> <a href="<%= data.phapluat[0].linkPost %>"><%= data.phapluat[0].title %></a> </figcaption>
+                      <figure class="bsbig_fig"> <a href="/<%= data.phapluat[0].linkPost %>" class="featured_img"> <img alt="<%= data.phapluat[0].article[i].imageName %>" src="<%= data.phapluat[0].article[i].image %>"> <span class="overlay"></span> </a>
+                        <figcaption> <a href="/<%= data.phapluat[0].linkPost %>"><%= data.phapluat[0].title %></a> </figcaption>
                         <p><%= data.phapluat[0].title.description %></p>
                       </figure>
                       <% break; %>
@@ -343,7 +352,9 @@
             </div>
             <div class="single_post_content_right">
               <ul class="spost_nav">
-                <% for(let i = 1; i < data.phapluat.length; i++){ %>
+                <% var maxlength = 4; %>
+                <% if(data.phapluat.length < maxlength) maxlength = data.phapluat.length; %>
+                <% for(let i = 1; i < maxlength; i++){ %>
                   <% let imageLink; %>
                   <% for(let j = 0; j < data.phapluat[i].article.length; j++){ %>
                     <% if(data.phapluat[i].article[j].image){ %>
@@ -352,8 +363,8 @@
                     <% } %>
                   <% } %>
                   <li>
-                    <div class="media wow fadeInDown"> <a href="<%= data.phapluat[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
-                      <div class="media-body"> <a href="<%= data.phapluat[i].linkPost %>" class="catg_title"><%= data.phapluat[i].title %></a> </div>
+                    <div class="media wow fadeInDown"> <a href="/<%= data.phapluat[i].linkPost %>" class="media-left"> <img alt="" src="<%= imageLink %>"> </a>
+                      <div class="media-body"> <a href="/<%= data.phapluat[i].linkPost %>" class="catg_title"><%= data.phapluat[i].title %></a> </div>
                     </div>
                   </li>
                 <% } %>
@@ -398,11 +409,11 @@
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="category">
                 <ul>
-                  <li class="cat-item"><a href="/thoi_su">Thời sự</a></li>
-                  <li class="cat-item"><a href="/kinh_doanh">Kinh doanh</a></li>
-                  <li class="cat-item"><a href="/giai_tri">Giải trí</a></li>
-                  <li class="cat-item"><a href="/the_thao">Thể thao</a></li>
-                  <li class="cat-item"><a href="/phap_luat">Pháp luật</a></li>
+                  <li class="cat-item"><a href="/thoisu">Thời sự</a></li>
+                  <li class="cat-item"><a href="/kinhdoanh">Kinh doanh</a></li>
+                  <li class="cat-item"><a href="/giaitri">Giải trí</a></li>
+                  <li class="cat-item"><a href="/thethao">Thể thao</a></li>
+                  <li class="cat-item"><a href="/phapluat">Pháp luật</a></li>
                 </ul>
               </div>
               <div role="tabpanel" class="tab-pane" id="video">
