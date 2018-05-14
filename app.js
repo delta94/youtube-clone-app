@@ -25,18 +25,17 @@ app.use(expressValidator());
 // Data for index page
 var data = {
     toDay: Date(),
-    content: [],
+    content: [],    // use for popular post
     post: {}    // use for single page content
 };
 var session;
-var loadDone = false;   // specify whether the data is fully loaded
 
 // Database
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'ngoctin',
     password: '123456',
-    database: 'newsfeed'
+    database: 'newsfeed_update'
 });
 
 db.connect((err) => {
@@ -48,7 +47,7 @@ db.connect((err) => {
 function getDataContent(topic = '', callBack = null){
     data.content = [];
     console.log(`topic: ${topic}`);
-    let mysqlQuery = `select Noi_dung from bai_viet where Noi_dung like "%${topic}%" limit 10`;
+    let mysqlQuery = `select * from bai_viet where Noi_dung like "%${topic}%" and Trang_thai = 1 order by Luot_quan_tam desc limit 10`;
     //console.log(mysqlQuery);
     db.query(mysqlQuery, (err, result) => {
         if(err){
@@ -59,7 +58,6 @@ function getDataContent(topic = '', callBack = null){
             //console.log(result.length);
             result.forEach((bv) => {
                 let filePath = __dirname + "/data/post/" + bv["Noi_dung"];
-                //console.log(filePath);
                 // Read file to fetch content
                 fs.readFile(filePath, 'utf8', (err, fileContent) => {
                     if(err) throw err;
@@ -79,7 +77,7 @@ function getDataContent(topic = '', callBack = null){
 }
 
 function getDataByTopic(topic, number = 5, callBack = null){
-    let mysql = `select * from bai_viet where Noi_dung like '%${topic}%' limit ${number}`;
+    let mysql = `select * from bai_viet where Noi_dung like '%${topic}%' and Trang_thai = 1 order by Luot_quan_tam desc limit ${number}`;
     data[topic] = [];
     db.query(mysql, (err, result) => {
         if(err){
@@ -171,7 +169,7 @@ function getDataForAllTopics(callBack = null){
     });
 }
 
-getDataForAllTopics(() => {loadDone = true;});
+getDataForAllTopics();
 
 handleRequestForATopic('/thoisu');
 handleRequestForATopic('/thoisu/giaothong');
