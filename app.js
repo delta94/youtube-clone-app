@@ -105,11 +105,10 @@ function getDataByTopic(topic, number = 5, callBack = null){
                     item.linkPost = post['Noi_dung'].split('.')[0];
                     data[topic].push(item);
                     //console.log(item);
-                    if(numberOfPost == number && callBack){
-                        callBack();
-                    }
                 });
             });
+            
+           callBack();
         }
     });
 }
