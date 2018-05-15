@@ -36,12 +36,19 @@
               <li><a href="#">About</a></li>
               <li><a href="/contact">Contact</a></li>
               <li><a href="/signin">Sign in</a></li>
-              <li><a href="/login">Login</a></li>
-              <li><a href="/logout">Logout</a></li>
+              <% if(data.username == ''){ %>
+                <li><a href="/login">Login</a></li>
+              <% } %>
+              <% if(data.username != ''){ %>
+                <li><a href="/logout">Logout</a></li>
+              <% } %>
             </ul>
           </div>
           <div class="header_top_right">
             <p><%= data.toDay %></p>
+            <% if(data.username != ''){ %>
+              <p>Xin chào <%= data.username %></p>   
+            <% } %>
           </div>
         </div>
       </div>
@@ -164,6 +171,8 @@
                   <% if(data.content[i].article[j].image){ %>
                     <% imageLink = data.content[i].article[j].image; %>
                     <% break; %>
+                  <% } else{ %>
+                    <% // console.log(data.content[i]); %>
                   <% } %>
                 <% } %>
                 <li>
@@ -202,7 +211,7 @@
             </div>
             <div class="single_post_content_right">
               <ul class="spost_nav">
-                <% var maxlength = 4; %>
+                <% var maxlength = 5; %>
                 <% if(data.thoisu.length < maxlength) maxlength = data.thoisu.length; %>
                 <% for(let i = 1; i < maxlength; i++){ %>
                   <% let imageLink; %>
@@ -239,7 +248,7 @@
                   </li>
                 </ul>
                 <ul class="spost_nav">
-                  <% var maxlength = 4; %>
+                  <% var maxlength = 5; %>
                   <% if(data.kinhdoanh.length < maxlength) maxlength = data.kinhdoanh.length; %>
                   <% for(let i = 1; i < maxlength; i++){ %>
                     <% let imageLink; %>
@@ -275,7 +284,7 @@
                   </li>
                 </ul>
                 <ul class="spost_nav">
-                  <% var maxlength = 4; %>
+                  <% var maxlength = 5; %>
                   <% if(data.giaitri.length < maxlength) maxlength = data.giaitri.length; %>
                   <% for(let i = 1; i < maxlength; i++){ %>
                     <% let imageLink; %>
@@ -314,7 +323,7 @@
             </div>
             <div class="single_post_content_right">
               <ul class="spost_nav">
-                <% var maxlength = 4; %>
+                <% var maxlength = 5; %>
                 <% if(data.thethao.length < maxlength) maxlength = data.thethao.length; %>
                 <% for(let i = 1; i < maxlength; i++){ %>
                   <% let imageLink; %>
@@ -352,7 +361,7 @@
             </div>
             <div class="single_post_content_right">
               <ul class="spost_nav">
-                <% var maxlength = 4; %>
+                <% var maxlength = 5; %>
                 <% if(data.phapluat.length < maxlength) maxlength = data.phapluat.length; %>
                 <% for(let i = 1; i < maxlength; i++){ %>
                   <% let imageLink; %>

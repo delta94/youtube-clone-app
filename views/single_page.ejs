@@ -37,7 +37,10 @@
             </ul>
           </div>
           <div class="header_top_right">
-            <p>Friday, December 05, 2045</p>
+            <p><%= data.toDay %></p>
+            <% if(data.username != ''){ %>
+              <p>Xin chào <%= data.username %></p>   
+            <% } %>
           </div>
         </div>
       </div>
@@ -130,11 +133,13 @@
       <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="left_content">
           <div class="single_page">
+          <!--
             <ol class="breadcrumb">
               <li><a href="/">Home</a></li>
               <li><a href="#">Technology</a></li>
               <li class="active">Mobile</li>
             </ol>
+            -->
             <h1><%= data.post.title %></h1>
             <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>Wpfreeware</a> <span><i class="fa fa-calendar"></i>6:49 AM</span> <a href="#"><i class="fa fa-tags"></i>Technology</a> </div>
             <div class="single_page_content">
@@ -167,6 +172,47 @@
                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                 <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
               </ul>
+            </div>
+            <div class="comments">
+              <div class="comment-header">Ý kiến bạn đọc</div>
+              <div class="comment-group">
+                <div class="comment">
+                  <div class="comment-content">Đây là một comment</div>
+                  <div class="comment-detail">
+                    <span class="comment-user"><strong>vantien: </strong>13-5-1998</span>
+                    <span class="right">12 <i class="glyphicon glyphicon-thumbs-up"></i></span>
+                    <span class="right response">Trả lời</span>
+                  </div>
+                  <div class="sub-comment">
+                    <div class="comment-content">Đây là một sub-comment</div>
+                    <div class="comment-detail">
+                      <span class="comment-user"><strong>ngoctin: </strong>13-5-1998</span>
+                      <span class="right">12 <i class="glyphicon glyphicon-thumbs-up"></i></span>
+                    </div>
+                  </div>
+                  <div class="sub-comment">
+                    <div class="comment-content">Đây là một sub-comment</div>
+                    <div class="comment-detail">
+                      <span class="comment-user"><strong>vodanh: </strong>13-5-1998</span>
+                      <span class="right">12 <i class="glyphicon glyphicon-thumbs-up"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="comment">
+                  <div class="comment-content">Bài viết này hay quá</div>
+                  <div class="comment-detail">
+                    <span class="comment-user"><strong>ngoctin: </strong>12-3-2018</span>
+                    <span class="right">4 <i class="glyphicon glyphicon-thumbs-up"></i></span>
+                    <span class="right response">Trả lời</span>
+                  </div>
+                </div>
+              </div>
+              <div class="input-comment">
+                <form id="comment-form">
+                  <textarea placeholder="Ý kiến của bạn"></textarea>
+                  <input type="submit" value="Gửi">
+                </form>
+              </div>
             </div>
             <div class="related_post">
               <h2>Related Post <i class="fa fa-thumbs-o-up"></i></h2>

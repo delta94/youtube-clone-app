@@ -34,6 +34,9 @@
           </div>
           <div class="header_top_right">
             <p><%= data.toDay %></p>
+            <% if(data.username != ''){ %>
+              <p>Xin chào <%= data.username %></p>   
+            <% } %>
           </div>
         </div>
       </div>
@@ -106,17 +109,17 @@
         <div class="col-xs-12">
             <h2>Login</h2>
             <form action="/login" method="POST">
-                <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
-                </div>
-                <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
-                <label for="password">Retype password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Retype password" name="retypePassword">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+              <div class="form-group">
+              <label for="username">Username:</label>
+              <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
+              </div>
+              <div class="form-group">
+              <label for="password">Password:</label>
+              <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+              <label for="password">Retype password:</label>
+              <input type="password" class="form-control" id="password" placeholder="Retype password" name="retypePassword">
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
     </div>

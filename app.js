@@ -26,7 +26,10 @@ app.use(expressValidator());
 var data = {
     toDay: Date(),
     content: [],    // use for popular post
-    post: {}    // use for single page content
+    post: {},    // use for single page content
+    username: '',    // use to know user
+    relatedPost: [],
+    comments: []
 };
 var session;
 
@@ -54,24 +57,31 @@ function getDataContent(topic = '', callBack = null){
             console.log(err);
         }
         else {
-            let numberOfPost = 0;
-            //console.log(result.length);
             result.forEach((bv) => {
+                // fs.readFile(filePath, 'utf8', (err, fileContent) => {
+                //     if(err) throw err;
+                //     let item = JSON.parse(fileContent);
+                //     item.linkPost = bv["Noi_dung"].split(".")[0];
+                //     //console.log(item);
+                //     data.content.push(item);
+                //     if(numberOfPost == result.length && callBack != null){
+                //         console.log('complete request');
+                //         callBack();
+                //     }
+                // });
+
                 let filePath = __dirname + "/data/post/" + bv["Noi_dung"];
                 // Read file to fetch content
-                fs.readFile(filePath, 'utf8', (err, fileContent) => {
-                    if(err) throw err;
-                    numberOfPost++;
-                    let item = JSON.parse(fileContent);
-                    item.linkPost = bv["Noi_dung"].split(".")[0];
-                    //console.log(item);
-                    data.content.push(item);
-                    if(numberOfPost == result.length && callBack != null){
-                        console.log('complete request');
-                        callBack();
-                    }
-                });
+                let fileContent = fs.readFileSync(filePath, 'utf8');
+                let item = JSON.parse(fileContent);
+                item.linkPost = bv["Noi_dung"].split(".")[0];
+                data.content.push(item);
             });
+            //console.log(data.content);
+            if(callBack != null){
+                console.log('Complete loading data content');
+                callBack();
+            }
         }
     });
 }
@@ -104,6 +114,33 @@ function getDataByTopic(topic, number = 5, callBack = null){
     });
 }
 
+function loadComment(post, maximum = 20, callBack = null){
+    post += '.json';
+    let sql = `select *, bl.Noi_dung from binh_luan as bl, bai_viet as bv
+    where bl.ID_BV = bv.ID_BV and bv.Noi_dung = '${post}' and bl.Trang_thai = 1 limit ${maximum}`;
+    db.query(sql, (err, results) => {
+        if(err){
+            console.log(err);
+        }
+        else{
+            data.comments = [];
+            results.forEach((result) => {
+                let item = {};
+                item['Noi_dung'] = result['Noi_dung'];
+                item['Thoi_gian'] = result['Thoi_gian'];
+                item['So_luot_thich'] = result['So_luot_thich'];
+                item['ID_BL_Cha'] = result['ID_BL_Cha'];
+                //console.log(item);
+                data.comments.push(item);
+            });
+
+            console.log(data.comments);
+        }
+    });
+}
+
+loadComment('giaitri/ca-khuc-ve-be-hai-an-hien-giac-mac-gay-xuc-dong');
+
 function handleRequestForAPost(route){
     app.get(route + '/:fileName', (req, res) => {
         let fileName = route.slice(1, route.length) + '/' + req.params.fileName + ".json";
@@ -123,6 +160,8 @@ function handleRequestForAPost(route){
                     }
                     else{
                         data.post = JSON.parse(fileContent);
+                        // get data for related post
+                        
                         res.render('single_page', {data: data});
                     }
                     
@@ -137,7 +176,7 @@ function handleRequestForAPost(route){
 
 function handleRequestForATopic(route){
     app.get(route, (req, res) => {
-        console.log(`route: ${route}`);
+        //console.log(`route: ${route}`);
         let topic = route.slice(1, route.length);
         getDataContent(topic, () => {
             res.render('index', {data: data});
@@ -160,7 +199,7 @@ function getDataForAllTopics(callBack = null){
     // Some topics are not loaded
     let numberOfTopics = 0;
     topics.forEach((topic) => {
-        getDataByTopic(topic, 5, () => {
+        getDataByTopic(topic, 8, () => {
             numberOfTopics++;
             if(numberOfTopics == topics.length && callBack){
                 callBack();
@@ -208,16 +247,22 @@ handleRequestForAPost('/phapluat');
 handleRequestForAPost('/phapluat/hosophaan');
 
 app.get('/signin', (req, res) => {
-    res.render('signin', {data: data});
+    getDataContent('', () => {
+        console.log('hello');
+        res.render('signin', {data: data});
+    });
 });
 
 app.post('/signin', (req, res) => {
     // Todo: Check this new account and add it to database
+    console.log(`req.params = ${req.params}`);
     res.redirect('/redirect');
 });
 
 app.get('/login', (req, res) => {
-    res.render('login', {data: data});
+    getDataContent('', () => {
+        res.render('login', {data: data});
+    });
 });
 
 app.post('/login', (req, res) => {
@@ -232,8 +277,10 @@ app.post('/login', (req, res) => {
             console.log(err);
             res.redirect('/redirect');
         }
-        else if(result[0]["Ten_dang_nhap"]){
+        else if(result.length > 0){
             req.session.username = req.body.username;
+            data.username = req.body.username;
+            console.log(data.username);
             res.redirect('/redirect');
         }
         else{
@@ -255,6 +302,7 @@ app.get('/logout', (req, res) => {
         if(err){
             console.log(err);
         }
+        data.username = '';
         res.redirect('/login');
     });
 });
@@ -264,6 +312,7 @@ app.get('/', (req, res) => {
         res.redirect('/admin');
     } else{
         getDataContent('', () => {
+            console.log('This is from get /');
             res.render('index', {data: data});
         });
         //res.render('index', {data: data});        
@@ -272,7 +321,9 @@ app.get('/', (req, res) => {
 
 app.get('/admin', (req, res) => {
     if(req.session.username == 'admin'){
-        res.render('admin', {data: data});
+        getDataContent('', () => {
+            res.render('admin', {data: data});
+        });
     }
     else {
         res.redirect('/login');
@@ -280,17 +331,23 @@ app.get('/admin', (req, res) => {
 });
 
 app.get('/contact', (req, res) => {
-    res.render('contact', {data: data});
+    getDataContent('', () => {
+        res.render('contact', {data: data});
+    });
 });
 
-app.get('/single_page', (req, res) => {
-    res.render('single_page', {data: data});
-});
+// app.get('/single_page', (req, res) => {
+//     getDataContent('', () => {
+//         res.render('index', {data: data});
+//     });
+// });
 
 app.get('*', (req, res) => {
-    res.render('404');
+    getDataContent('', () => {
+        res.render('404', {data: data});
+    });
 });
 
-app.listen(3001, () => {
-    console.log('Server listen on port 3001');
+app.listen(3000, () => {
+    console.log('Server listen on port 3000');
 });

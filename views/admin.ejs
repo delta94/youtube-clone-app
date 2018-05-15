@@ -35,6 +35,9 @@
           </div>
           <div class="header_top_right">
             <p><%= data.toDay %></p>
+            <% if(data.username != ''){ %>
+              <p>Xin chào <%= data.username %></p>   
+            <% } %>
           </div>
         </div>
       </div>
